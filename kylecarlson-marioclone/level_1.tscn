@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://uy7mq8ngxngn"]
+
+[ext_resource type="PackedScene" uid="uid://vjqk1cju2p78" path="res://marty.tscn" id="1_3hls8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
+size = Vector2(331, 20)
+
+[node name="Level1" type="Node2D" unique_id=1897468267]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1563926003]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2130191644]
+position = Vector2(165.5, 83)
+shape = SubResource("RectangleShape2D_hbghi")
+
+[node name="Marty" parent="StaticBody2D" unique_id=1064341325 instance=ExtResource("1_3hls8")]
+position = Vector2(36, 24)
