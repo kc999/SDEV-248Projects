@@ -501,7 +501,9 @@ animations = [{
 "speed": 60.0
 }]
 
-[node name="Marty" type="CharacterBody2D" unique_id=1064341325]
+[node name="Marty" type="CharacterBody2D" unique_id=1064341325 groups=["player"]]
+collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_vu2ji")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=900432313]

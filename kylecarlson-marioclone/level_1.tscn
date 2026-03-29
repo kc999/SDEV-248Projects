@@ -1,17 +1,32 @@
 [gd_scene format=3 uid="uid://uy7mq8ngxngn"]
 
 [ext_resource type="PackedScene" uid="uid://vjqk1cju2p78" path="res://marty.tscn" id="1_3hls8"]
+[ext_resource type="PackedScene" uid="uid://doeyig7gya2bl" path="res://goober.tscn" id="2_hbghi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
-size = Vector2(331, 20)
+size = Vector2(793, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hn12h"]
+size = Vector2(42, 40)
 
 [node name="Level1" type="Node2D" unique_id=1897468267]
+position = Vector2(0, 176)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1563926003]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2130191644]
-position = Vector2(165.5, 83)
+position = Vector2(396.5, 83)
 shape = SubResource("RectangleShape2D_hbghi")
 
 [node name="Marty" parent="StaticBody2D" unique_id=1064341325 instance=ExtResource("1_3hls8")]
 position = Vector2(36, 24)
+
+[node name="Goober" parent="StaticBody2D" unique_id=793101633 instance=ExtResource("2_hbghi")]
+position = Vector2(414, 33)
+active = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=73276676]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=63418896]
+position = Vector2(241, 52)
+shape = SubResource("RectangleShape2D_hn12h")

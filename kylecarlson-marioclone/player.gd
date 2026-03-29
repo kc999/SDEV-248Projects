@@ -1,12 +1,14 @@
 extends CharacterBody2D
 
-const GRAVITY = 400
-var jumpHeight: float = 200
+const GRAVITY = 500
 var movementVec : Vector2
 var horV: float = 0
 var speed: float = 200
 var accelSpeed: float = 10
 var fric: float = 15
+enum playerState {NORMAL,LARGE,FLOWER,HURT,DEAD}
+var currentState = playerState.NORMAL
+@export var jumpHeight: float = 300
 @onready var sprite: AnimatedSprite2D = $Sprite
 
 #Get movement
@@ -19,7 +21,6 @@ func _physics_process(delta: float) -> void:
 func playerMovement(moveVec: Vector2, delta) -> void:
 	#Get Horizontal Movement
 	#If player is moving
-	
 	if is_on_floor():
 		#If the player is holding down the mpovement keys
 		if movementVec.x != 0:
@@ -37,8 +38,6 @@ func playerMovement(moveVec: Vector2, delta) -> void:
 	else:
 		velocity.x += movementVec.x * speed * delta
 		velocity.y += delta * GRAVITY
-	
-	
 	move_and_slide()
 	
 	
