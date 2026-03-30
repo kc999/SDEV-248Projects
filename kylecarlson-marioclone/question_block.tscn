@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://l24c81tnvw6o"]
+
+[ext_resource type="Script" uid="uid://7i55t7o2414p" path="res://question_block.gd" id="1_rq8x1"]
+[ext_resource type="Texture2D" uid="uid://dp5eyndumgvs6" path="res://Assets/Sprites/World/questionblock.png" id="2_nvbbc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvgo7"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_ixnek"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_olo14"]
+resource_name = "hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.049578026, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -16), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j665u"]
+_data = {
+&"RESET": SubResource("Animation_ixnek"),
+&"hit": SubResource("Animation_olo14")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rq8x1"]
+size = Vector2(16, 18)
+
+[node name="QuestionBlock" type="Node2D" unique_id=438817558]
+script = ExtResource("1_rq8x1")
+
+[node name="Collision" type="StaticBody2D" parent="." unique_id=812256776]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision" unique_id=243700381]
+shape = SubResource("RectangleShape2D_yvgo7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=229891754]
+texture_filter = 2
+texture = ExtResource("2_nvbbc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=397550230]
+libraries/ = SubResource("AnimationLibrary_j665u")
+
+[node name="PlayerCollide" type="Area2D" parent="." unique_id=734137916]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollide" unique_id=1679972080]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_rq8x1")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="PlayerCollide" to="." method="_on_player_collide_area_entered"]

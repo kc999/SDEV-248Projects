@@ -37,6 +37,8 @@ func playerMovement(moveVec: Vector2, delta) -> void:
 		velocity.x = horV
 	else:
 		velocity.x += movementVec.x * speed * delta
+		if abs(velocity.x) > speed:
+			velocity.x = speed * sign(velocity.x)
 		velocity.y += delta * GRAVITY
 	move_and_slide()
 	

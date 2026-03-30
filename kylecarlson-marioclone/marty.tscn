@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://llmyqtmabpa0" path="res://Assets/Sprites/Characters/mario_walk.png" id="2_sjqyy"]
 [ext_resource type="Texture2D" uid="uid://cbk5n7psgb1a3" path="res://Assets/Sprites/Characters/mario_shoot_fireball.png" id="3_fb4yj"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fb4yj"]
+size = Vector2(35.000008, 16.250002)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sspw1"]
-size = Vector2(42.5, 66)
+size = Vector2(35.000008, 65.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pfro4"]
 atlas = ExtResource("2_fb4yj")
@@ -502,12 +505,25 @@ animations = [{
 }]
 
 [node name="Marty" type="CharacterBody2D" unique_id=1064341325 groups=["player"]]
+scale = Vector2(0.4, 0.4)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_vu2ji")
 
+[node name="Area2D" type="Area2D" parent="." unique_id=702041325]
+position = Vector2(-2.2499998, 0)
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1725987299]
+position = Vector2(-0.25, -26.875002)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_fb4yj")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=900432313]
-position = Vector2(-2.25, 0)
+position = Vector2(-2.5, 0.25000182)
+scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_sspw1")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=11458889]
@@ -515,3 +531,5 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_pfro4")
 animation = &"idle"
 frame_progress = 0.9605868
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=676610224]

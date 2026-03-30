@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://2v4q4v22cni0"]
+
+[ext_resource type="Texture2D" uid="uid://d3n3uscpfpkkg" path="res://Assets/Sprites/World/pipe.png" id="1_bepn3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78010"]
+size = Vector2(28, 93)
+
+[node name="pipe" type="Node2D" unique_id=1481617483]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=273949101]
+texture = ExtResource("1_bepn3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=279684806]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=899399449]
+texture_filter = 1
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_78010")
