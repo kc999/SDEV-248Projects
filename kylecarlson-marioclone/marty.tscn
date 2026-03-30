@@ -533,3 +533,5 @@ animation = &"idle"
 frame_progress = 0.9605868
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=676610224]
+limit_left = 0
+limit_bottom = 630

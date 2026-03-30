@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b73vet8t7cqpj"]
+
+[ext_resource type="Texture2D" uid="uid://b5m5cuxxnbo4g" path="res://Assets/Sprites/World/castle.png" id="1_xtwgx"]
+
+[node name="Castle" type="Node2D" unique_id=1224780908]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=851152061]
+texture_filter = 1
+texture = ExtResource("1_xtwgx")
