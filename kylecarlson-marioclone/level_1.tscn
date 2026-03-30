@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://biunfwh8v8lbn" path="res://breakable_tile.tscn" id="3_ihfcg"]
 [ext_resource type="PackedScene" uid="uid://2v4q4v22cni0" path="res://pipe.tscn" id="5_rka8t"]
 [ext_resource type="Texture2D" uid="uid://bud43itj672sy" path="res://Assets/Sprites/World/sky.png" id="6_5hph3"]
+[ext_resource type="PackedScene" uid="uid://3j835r5cwcds" path="res://mushroom.tscn" id="9_5rr72"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ihfcg"]
 texture = ExtResource("3_hn12h")
@@ -84,3 +85,6 @@ texture = ExtResource("6_5hph3")
 [node name="Goober" parent="." unique_id=793101633 instance=ExtResource("2_hbghi")]
 position = Vector2(555, 523)
 active = true
+
+[node name="Mushroom" parent="." unique_id=118646450 instance=ExtResource("9_5rr72")]
+position = Vector2(460, 529)
