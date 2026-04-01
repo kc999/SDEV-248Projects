@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://mypmt16ggsan"]
+
+[ext_resource type="Script" uid="uid://dlasd0vqskul3" path="res://breakable_tile_item.gd" id="1_pf30x"]
+[ext_resource type="Texture2D" uid="uid://tkkxx4m3salv" path="res://Assets/Sprites/World/breakabletile.png" id="2_u058f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gdqt"]
+size = Vector2(16, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fyakb"]
+size = Vector2(16, 16)
+
+[node name="BreakableTile" type="Node2D" unique_id=820888789]
+script = ExtResource("1_pf30x")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=179863456]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1637277518]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_6gdqt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1999106718]
+texture_filter = 2
+texture = ExtResource("2_u058f")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2039233648]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=286596311]
+shape = SubResource("RectangleShape2D_fyakb")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

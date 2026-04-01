@@ -9,11 +9,15 @@ var fric: float = 15
 enum playerState {NORMAL,LARGE,FLOWER,HURT,DEAD}
 var currentState = playerState.NORMAL
 var invulnerable: bool = false
+var normColor = Color("#ffffff")
+var fireColor = Color("#de7331")
 @export var jumpHeight: float = 300
+@export var jumpReleaseMultiplier: float = 0.5
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var playerCollision = $CollisionShape2D
 @onready var playerHeadCollision = $Area2D/CollisionShape2D
 @onready var animPlayer: AnimationPlayer = $AnimPlayer
+@onready var fireTimer: Timer = $fireTimer
 #Get movement
 func _unhandled_input(event: InputEvent) -> void:
 	movementVec = Input.get_vector("left","right","jump","crouch")
@@ -37,8 +41,11 @@ func playerMovement(moveVec: Vector2, delta) -> void:
 		if Input.is_action_pressed("jump"):
 			velocity.y -= jumpHeight
 			sprite.play("jump")
+		
 		velocity.x = horV
 	else:
+		if Input.is_action_just_released("jump") && velocity.y < 0:
+			velocity.y *= jumpReleaseMultiplier
 		velocity.x += movementVec.x * speed * delta
 		if abs(velocity.x) > speed:
 			velocity.x = speed * sign(velocity.x)
@@ -73,8 +80,16 @@ func take_damage()-> void:
 	if !invulnerable:
 		if currentState == playerState.LARGE:
 			shrink()
+		if currentState == playerState.FLOWER:
+			change_color(normColor)
+			invulnerable = true
+func change_color(color:Color)-> void:
+	sprite.modulate = color
 	
-			
+func pickup_flower() -> void:
+	fireTimer.start()
+	change_color(fireColor)
+	invulnerable = true
 func _on_anim_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "grow":
 		invulnerable = false
@@ -85,3 +100,13 @@ func _on_anim_player_animation_finished(anim_name: StringName) -> void:
 			currentState = playerState.NORMAL
 			return
 		
+func _on_fire_timer_timeout() -> void:
+	#Chose the correct state based on what state the player has when this function is called
+	if currentState == playerState.FLOWER:
+		#Player has a flower, make them normal again
+		currentState  = playerState.LARGE
+		invulnerable = false
+	#Player is in large state, make them have a flower now
+	if currentState == playerState.LARGE:
+		currentState = playerState.FLOWER
+		invulnerable = false

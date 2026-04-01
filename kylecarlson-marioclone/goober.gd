@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 func _on_head_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		if body.currentState != body.playerState.DEAD:
-			body.velocity.y = -body.jumpHeight
+			body.velocity.y = -body.jumpHeight/2
 			dead = true
 			die()
 
