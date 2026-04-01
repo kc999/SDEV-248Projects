@@ -575,3 +575,5 @@ limit_bottom = 630
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="." unique_id=348430661]
 libraries/ = SubResource("AnimationLibrary_icty0")
+
+[connection signal="animation_finished" from="AnimPlayer" to="." method="_on_anim_player_animation_finished"]

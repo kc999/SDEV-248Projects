@@ -8,11 +8,12 @@ var accelSpeed: float = 10
 var fric: float = 15
 enum playerState {NORMAL,LARGE,FLOWER,HURT,DEAD}
 var currentState = playerState.NORMAL
+var invulnerable: bool = false
 @export var jumpHeight: float = 300
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var playerCollision = $CollisionShape2D
 @onready var playerHeadCollision = $Area2D/CollisionShape2D
-
+@onready var animPlayer: AnimationPlayer = $AnimPlayer
 #Get movement
 func _unhandled_input(event: InputEvent) -> void:
 	movementVec = Input.get_vector("left","right","jump","crouch")
@@ -58,5 +59,10 @@ func controlSize(state)-> void:
 			sprite.scale = Vector2(0.4,0.4)
 
 func enlarge()-> void:
-	currentState = playerState.LARGE
-	controlSize(currentState)
+	animPlayer.play("grow")
+
+
+func _on_anim_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "grow":
+		currentState = playerState.LARGE
+		#controlSize(currentState)

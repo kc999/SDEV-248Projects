@@ -15,6 +15,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.enlarge()
+		if body.currentState == body.playerState.NORMAL:
+			body.enlarge()
 		queue_free()
 	
