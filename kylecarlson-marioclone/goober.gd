@@ -16,6 +16,7 @@ func _physics_process(delta: float) -> void:
 		if !is_on_floor():
 			velocity.y += delta * GRAVITY
 		move_and_slide()
+		get_player_collision()
 	
 func _on_head_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -33,3 +34,10 @@ func die() -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "die":
 		queue_free()
+
+func get_player_collision() -> void:
+	for col in get_slide_collision_count():
+		var collide = get_slide_collision(col)
+		if collide:
+			if collide.get_collider().is_in_group("player"):
+				collide.get_collider().take_damage()

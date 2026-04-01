@@ -88,3 +88,11 @@ active = true
 
 [node name="Mushroom" parent="." unique_id=118646450 instance=ExtResource("9_5rr72")]
 position = Vector2(460, 529)
+
+[node name="Goober2" parent="." unique_id=1419656634 instance=ExtResource("2_hbghi")]
+position = Vector2(666, 522)
+active = true
+
+[node name="Goober3" parent="." unique_id=934274893 instance=ExtResource("2_hbghi")]
+position = Vector2(784, 505)
+active = true

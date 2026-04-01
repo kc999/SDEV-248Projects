@@ -43,7 +43,8 @@ func playerMovement(moveVec: Vector2, delta) -> void:
 		if abs(velocity.x) > speed:
 			velocity.x = speed * sign(velocity.x)
 		velocity.y += delta * GRAVITY
-	move_and_slide()
+	if !invulnerable: 
+		move_and_slide()
 	
 func controlSize(state)-> void:
 	match state:
@@ -60,9 +61,27 @@ func controlSize(state)-> void:
 
 func enlarge()-> void:
 	animPlayer.play("grow")
+	invulnerable = true
 
-
+func shrink() -> void:
+	print("shrinking")
+	animPlayer.play_backwards("grow")
+	invulnerable = true
+	
+func take_damage()-> void:
+	print(currentState)
+	if !invulnerable:
+		if currentState == playerState.LARGE:
+			shrink()
+	
+			
 func _on_anim_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "grow":
-		currentState = playerState.LARGE
-		#controlSize(currentState)
+		invulnerable = false
+		if currentState == playerState.NORMAL:
+			currentState = playerState.LARGE
+			return
+		if currentState == playerState.LARGE:
+			currentState = playerState.NORMAL
+			return
+		

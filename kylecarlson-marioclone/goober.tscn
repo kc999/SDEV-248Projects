@@ -249,7 +249,7 @@ _data = {
 [node name="Goober" type="CharacterBody2D" unique_id=793101633]
 scale = Vector2(0.35, 0.35)
 collision_layer = 4
-collision_mask = 5
+collision_mask = 7
 script = ExtResource("1_px748")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1215777381]
