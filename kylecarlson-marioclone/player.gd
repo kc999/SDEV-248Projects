@@ -82,14 +82,18 @@ func take_damage()-> void:
 			shrink()
 		if currentState == playerState.FLOWER:
 			change_color(normColor)
+			fireTimer.start()
 			invulnerable = true
 func change_color(color:Color)-> void:
 	sprite.modulate = color
 	
 func pickup_flower() -> void:
-	fireTimer.start()
-	change_color(fireColor)
-	invulnerable = true
+	if currentState == playerState.FLOWER:
+		fireTimer.start()
+		change_color(fireColor)
+		invulnerable = true
+	elif currentState == playerState.NORMAL:
+		enlarge()
 func _on_anim_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "grow":
 		invulnerable = false
