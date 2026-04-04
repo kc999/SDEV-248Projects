@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://7i55t7o2414p" path="res://Scripts/question_block.gd" id="1_rq8x1"]
 [ext_resource type="Texture2D" uid="uid://dp5eyndumgvs6" path="res://Assets/Sprites/World/questionblock.png" id="2_nvbbc"]
+[ext_resource type="PackedScene" uid="uid://clk0hn1pl4wvy" path="res://coin_in_block.tscn" id="2_yvgo7"]
 [ext_resource type="Animation" uid="uid://cqr5ra1c3pwnh" path="res://Animations/hit.res" id="3_nvbbc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvgo7"]
@@ -33,6 +34,7 @@ size = Vector2(16, 18)
 
 [node name="QuestionBlock" type="Node2D" unique_id=438817558]
 script = ExtResource("1_rq8x1")
+coinScene = ExtResource("2_yvgo7")
 
 [node name="Collision" type="StaticBody2D" parent="." unique_id=812256776]
 

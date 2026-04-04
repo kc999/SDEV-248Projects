@@ -11,6 +11,7 @@ extends Node2D
 @export var isLifeBlock: bool = false
 var active: bool = true
 var root
+var dudBlock: CompressedTexture2D = preload("res://Assets/Sprites/World/dudblock.png")
 
 func _ready() -> void:
 	root = get_tree().root
@@ -20,11 +21,18 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	var player = area.owner
 	if area.get_collision_layer_value(5) && (player.velocity.y <= 0) && active == true:
 		animPlayer.play("hit")
-		if isCoinBlock && coin:
+		if isCoinBlock && coin && active:
 			var newCoin = coin.instantiate()
 			root.add_child(newCoin)
 			newCoin.global_position = global_position
-		if isLifeBlock && life:
+			if disableTimer.is_stopped():
+				disableTimer.start()
+		if isLifeBlock && life && active:
 			var newLife = life.instantiate()
 			root.add_child(newLife)
 			newLife.global_position = global_position
+
+
+func _on_disable_timer_timeout() -> void:
+	active = false
+	sprite.texture = dudBlock

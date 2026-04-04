@@ -18,7 +18,7 @@ func add_lives(lives_to_add: int) -> void:
 	update_lives()
 
 func update_coins() -> void:
-	coinsLabel.text = str(coins)
+	coinsLabel.text = "Coins: " + str(coins)
 
 func update_lives() -> void:
 	livesLabel.text = str(lives)

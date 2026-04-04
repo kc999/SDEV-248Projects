@@ -88,7 +88,7 @@ func change_color(color:Color)-> void:
 	sprite.modulate = color
 	
 func pickup_flower() -> void:
-	if currentState == playerState.FLOWER:
+	if currentState == playerState.LARGE:
 		fireTimer.start()
 		change_color(fireColor)
 		invulnerable = true
