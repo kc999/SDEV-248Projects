@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://clk0hn1pl4wvy"]
+
+[ext_resource type="Script" uid="uid://cs37vfyw5tqlb" path="res://coin_in_block.gd" id="1_gtrl7"]
+[ext_resource type="Texture2D" uid="uid://c517bei5a1d5c" path="res://Assets/Sprites/World/coin.png" id="2_7rfyn"]
+
+[sub_resource type="Animation" id="Animation_hsgdi"]
+resource_name = "Hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00036404785, 0.054789204, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -17.425), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5dcnn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_78dnp"]
+_data = {
+&"Hit": SubResource("Animation_hsgdi"),
+&"RESET": SubResource("Animation_5dcnn")
+}
+
+[node name="CoinInBlock" type="Node2D" unique_id=1131816603]
+script = ExtResource("1_gtrl7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1351641958]
+texture = ExtResource("2_7rfyn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1664297235]
+libraries/ = SubResource("AnimationLibrary_78dnp")
+autoplay = &"Hit"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://biunfwh8v8lbn"]
 
-[ext_resource type="Script" uid="uid://bbilteroxgmyw" path="res://breakable_tile.gd" id="1_n853i"]
+[ext_resource type="Script" uid="uid://dlasd0vqskul3" path="res://Scripts/breakable_tile.gd" id="1_n853i"]
 [ext_resource type="Texture2D" uid="uid://tkkxx4m3salv" path="res://Assets/Sprites/World/breakabletile.png" id="1_qjtoy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gdqt"]

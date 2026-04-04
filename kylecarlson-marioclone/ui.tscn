@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://j488tinn8yl3"]
 
-[ext_resource type="Script" uid="uid://ctacyrx1xoaot" path="res://ui.gd" id="1_m6e0p"]
+[ext_resource type="Script" uid="uid://ctacyrx1xoaot" path="res://Scripts/ui.gd" id="1_m6e0p"]
 [ext_resource type="FontFile" uid="uid://dabt5s4pu6qa1" path="res://Assets/Font/C&C Red Alert [INET].ttf" id="2_27fn8"]
 
-[node name="UI" type="CanvasLayer" unique_id=410014085]
+[node name="UI" type="CanvasLayer" unique_id=410014085 groups=["ui"]]
 script = ExtResource("1_m6e0p")
 
 [node name="CoinsLabel" type="Label" parent="." unique_id=239365691]

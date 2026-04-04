@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vjqk1cju2p78"]
 
-[ext_resource type="Script" uid="uid://wowr3ff71me7" path="res://player.gd" id="1_vu2ji"]
+[ext_resource type="Script" uid="uid://wowr3ff71me7" path="res://Scripts/player.gd" id="1_vu2ji"]
 [ext_resource type="Texture2D" uid="uid://bmkihlg33cae6" path="res://Assets/Sprites/Characters/mario_idle.png" id="2_fb4yj"]
 [ext_resource type="Texture2D" uid="uid://evh1f2yyewya" path="res://Assets/Sprites/Characters/mario_jump.png" id="2_l2xpp"]
 [ext_resource type="Texture2D" uid="uid://llmyqtmabpa0" path="res://Assets/Sprites/Characters/mario_walk.png" id="2_sjqyy"]

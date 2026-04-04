@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://mypmt16ggsan"]
 
-[ext_resource type="Script" uid="uid://dlasd0vqskul3" path="res://breakable_tile_item.gd" id="1_pf30x"]
+[ext_resource type="Script" uid="uid://bbilteroxgmyw" path="res://Scripts/breakable_tile_item.gd" id="1_pf30x"]
 [ext_resource type="Texture2D" uid="uid://tkkxx4m3salv" path="res://Assets/Sprites/World/breakabletile.png" id="2_u058f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gdqt"]
@@ -9,7 +9,28 @@ size = Vector2(16, 17)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyakb"]
 size = Vector2(16, 16)
 
-[node name="BreakableTile" type="Node2D" unique_id=820888789]
+[sub_resource type="Animation" id="Animation_u058f"]
+resource_name = "hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5fdbw"]
+_data = {
+&"hit": SubResource("Animation_u058f")
+}
+
+[node name="BreakableTileItem" type="Node2D" unique_id=820888789]
 script = ExtResource("1_pf30x")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=179863456]
@@ -28,5 +49,12 @@ texture = ExtResource("2_u058f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=286596311]
 shape = SubResource("RectangleShape2D_fyakb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=146499672]
+libraries/ = SubResource("AnimationLibrary_5fdbw")
+
+[node name="DisableTimer" type="Timer" parent="AnimationPlayer" unique_id=1897715614]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

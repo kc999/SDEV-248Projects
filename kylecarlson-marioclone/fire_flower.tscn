@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c7qg3goc4f38v"]
 
 [ext_resource type="Texture2D" uid="uid://deedx8e752w0" path="res://Assets/Sprites/World/fireflower.png" id="1_b3omj"]
-[ext_resource type="Script" uid="uid://ti53tmtgxe2a" path="res://fire_flower.gd" id="1_mc8ke"]
+[ext_resource type="Script" uid="uid://ti53tmtgxe2a" path="res://Scripts/fire_flower.gd" id="1_mc8ke"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mc8ke"]
 radius = 8.062258

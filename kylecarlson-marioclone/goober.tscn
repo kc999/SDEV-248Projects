@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://doeyig7gya2bl"]
 
 [ext_resource type="Texture2D" uid="uid://cyh8riogl1b41" path="res://Assets/Sprites/Characters/goomba_walk.png" id="1_0wbft"]
-[ext_resource type="Script" uid="uid://b47cirn2yuby1" path="res://goober.gd" id="1_px748"]
+[ext_resource type="Script" uid="uid://b47cirn2yuby1" path="res://Scripts/goober.gd" id="1_px748"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_px748"]
 size = Vector2(44, 46)
