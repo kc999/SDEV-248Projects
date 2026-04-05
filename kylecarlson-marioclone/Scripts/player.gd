@@ -24,16 +24,23 @@ var root
 @onready var animPlayer: AnimationPlayer = $AnimPlayer
 @onready var fireTimer: Timer = $fireTimer
 @onready var fireRateTimer: Timer = $fireRateTimer
+@onready var characterCollision: CollisionShape2D = $CollisionShape2D
+@onready var deathTimer: Timer = $DeathTimer
+var UI: CanvasLayer
 func _ready() -> void:
 	root = get_tree().root
+	UI = get_tree().get_first_node_in_group("ui")
 
 #Get movement
 func _unhandled_input(event: InputEvent) -> void:
 	movementVec = Input.get_vector("left","right","jump","crouch")
 	
 func _physics_process(delta: float) -> void:
-	playerMovement(movementVec, delta)
-	shoot_fireball()
+	if currentState!=playerState.DEAD:
+		playerMovement(movementVec, delta)
+		shoot_fireball()
+	else:
+		dead(delta)
 	
 func playerMovement(moveVec: Vector2, delta) -> void:
 	#Get Horizontal Movement
@@ -77,13 +84,15 @@ func shrink() -> void:
 	invulnerable = true
 	
 func take_damage()-> void:
-	print(currentState)
 	if !invulnerable:
+		if currentState == playerState.NORMAL:
+			die()
 		if currentState == playerState.LARGE:
 			shrink()
 		if currentState == playerState.FLOWER:
 			unFireTimer.start()
 			invulnerable = true
+		
 func change_color(color:Color)-> void:
 	sprite.modulate = color
 	
@@ -133,3 +142,24 @@ func _on_un_fire_timer_timeout() -> void:
 	currentState = playerState.LARGE
 	invulnerable = false
 	change_color(normColor)
+
+func die():
+	currentState = playerState.DEAD
+	velocity.x = 0
+	velocity.y = -200
+	characterCollision.set_deferred("disabled",true)
+	sprite.play("dead")
+	
+	deathTimer.start()
+	
+func dead(delta):
+	velocity.y += GRAVITY * delta
+	move_and_slide()
+
+func _on_death_timer_timeout() -> void:
+	UI.remove_lives(1)
+	#Restart game and remove lives
+	if player_stats.lives > 0:
+		get_tree().call_deferred("reload_current_scene")
+	else:
+		get_tree().call_deferred("change_scene_to_file","res://game_over.tscn")

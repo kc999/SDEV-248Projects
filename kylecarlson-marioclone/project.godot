@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="kylecarlson_marioclone"
-run/main_scene="res://level_1.tscn"
+run/main_scene="uid://xpupwklt0ngp"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+player_stats="*uid://b4rtgik12itq4"
 
 [display]
 

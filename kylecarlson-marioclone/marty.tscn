@@ -598,8 +598,13 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
+[node name="DeathTimer" type="Timer" parent="." unique_id=405142487]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="animation_finished" from="AnimPlayer" to="." method="_on_anim_player_animation_finished"]
 [connection signal="timeout" from="fireTimer" to="." method="_on_fire_timer_timeout"]
 [connection signal="timeout" from="fireRateTimer" to="." method="_on_fire_rate_timer_timeout"]
 [connection signal="timeout" from="unFireTimer" to="." method="_on_un_fire_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

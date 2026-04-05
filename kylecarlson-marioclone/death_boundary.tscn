@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dtew7b4o4hf7g"]
+
+[ext_resource type="Script" uid="uid://h35lqakdxndp" path="res://death_boundary.gd" id="1_i6dlv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcthf"]
+size = Vector2(112, 20)
+
+[node name="DeathBoundary" type="Node2D" unique_id=836713851]
+script = ExtResource("1_i6dlv")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1434363640]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1475709725]
+position = Vector2(46, 0)
+shape = SubResource("RectangleShape2D_qcthf")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
