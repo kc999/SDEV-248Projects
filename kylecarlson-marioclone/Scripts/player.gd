@@ -17,6 +17,7 @@ var root
 @export var jumpHeight: float = 300
 @export var jumpReleaseMultiplier: float = 0.5
 @export var fireBallScene: PackedScene
+@onready var unFireTimer: Timer = $unFireTimer
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var playerCollision = $CollisionShape2D
 @onready var playerHeadCollision = $Area2D/CollisionShape2D
@@ -65,18 +66,6 @@ func playerMovement(moveVec: Vector2, delta) -> void:
 	if !invulnerable: 
 		move_and_slide()
 	
-func controlSize(state)-> void:
-	match state:
-		playerState.NORMAL:
-			sprite.scale = Vector2(1,1)
-		playerState.LARGE:
-			sprite.scale = Vector2(1.5,1.5)
-			playerCollision.scale = Vector2(1.25,1.25)
-			playerHeadCollision.position.y = -39 
-		playerState.FLOWER:
-			sprite.scale = Vector2(0.75,0.75)
-		_:
-			sprite.scale = Vector2(0.4,0.4)
 
 func enlarge()-> void:
 	animPlayer.play("grow")
@@ -93,8 +82,7 @@ func take_damage()-> void:
 		if currentState == playerState.LARGE:
 			shrink()
 		if currentState == playerState.FLOWER:
-			change_color(normColor)
-			fireTimer.start()
+			unFireTimer.start()
 			invulnerable = true
 func change_color(color:Color)-> void:
 	sprite.modulate = color
@@ -117,15 +105,9 @@ func _on_anim_player_animation_finished(anim_name: StringName) -> void:
 			return
 		
 func _on_fire_timer_timeout() -> void:
-	#Chose the correct state based on what state the player has when this function is called
-	if currentState == playerState.FLOWER:
-		#Player has a flower, make them normal again
-		currentState  = playerState.LARGE
-		invulnerable = false
-	#Player is in large state, make them have a flower now
-	if currentState == playerState.LARGE:
-		currentState = playerState.FLOWER
-		invulnerable = false
+	currentState = playerState.FLOWER
+	invulnerable = false
+	
 
 func shoot_fireball() -> void:
 	if currentState == playerState.FLOWER && canShoot:
@@ -133,7 +115,7 @@ func shoot_fireball() -> void:
 			var fireBall = fireBallScene.instantiate()
 			root.add_child(fireBall)
 			fireBall.global_position = global_position
-			
+			fireBall.dir.x = -1 if sprite.flip_h == true else 1
 			firing = true
 			canShoot = false
 			fireRateTimer.start()
@@ -145,3 +127,9 @@ func _on_sprite_animation_finished() -> void:
 
 func _on_fire_rate_timer_timeout() -> void:
 	canShoot = true
+
+
+func _on_un_fire_timer_timeout() -> void:
+	currentState = playerState.LARGE
+	invulnerable = false
+	change_color(normColor)

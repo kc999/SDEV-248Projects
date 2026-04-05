@@ -4,6 +4,7 @@ var speed: float = 50
 var direction: Vector2 = Vector2.LEFT
 const GRAVITY = 500
 var dead: bool = false
+var jumpHeight: float = 100
 @export var active: bool = false
 @onready var animPlayer: AnimationPlayer = $AnimationPlayer
 @onready var collisionShape1: CollisionShape2D = $CollisionShape2D
@@ -41,3 +42,15 @@ func get_player_collision() -> void:
 		if collide:
 			if collide.get_collider().is_in_group("player"):
 				collide.get_collider().take_damage()
+
+func fireBallHit()-> void:
+	collisionShape1.set_deferred("disabled",true)
+	collisionShape2.set_deferred("disabled",true)
+	animPlayer.play("fireball_hit")
+	velocity.y -= jumpHeight
+	await get_tree().create_timer(4).timeout
+	queue_free()
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	active = true

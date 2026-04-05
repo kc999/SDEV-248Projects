@@ -24,6 +24,8 @@ window/stretch/scale=1.5
 
 player=""
 ui=""
+enemies=""
+tilemap=""
 
 [input]
 
@@ -65,6 +67,7 @@ crouch={
 2d_physics/layer_4="enemy_head"
 2d_physics/layer_5="player_head"
 2d_physics/layer_6="pickups"
+2d_physics/layer_7="fireball"
 
 [physics]
 
