@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c7qg3goc4f38v" path="res://fire_flower.tscn" id="10_gyffv"]
 [ext_resource type="PackedScene" uid="uid://mypmt16ggsan" path="res://breakable_tile_item.tscn" id="12_ggavl"]
 [ext_resource type="PackedScene" uid="uid://clk0hn1pl4wvy" path="res://coin_in_block.tscn" id="13_ubhxj"]
+[ext_resource type="PackedScene" uid="uid://6r5rugd27ne8" path="res://fire_ball.tscn" id="15_ubhxj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ihfcg"]
 texture = ExtResource("3_hn12h")
@@ -95,7 +96,6 @@ position = Vector2(555, 523)
 active = true
 
 [node name="Mushroom" parent="." unique_id=118646450 instance=ExtResource("9_5rr72")]
-position = Vector2(460, 529)
 
 [node name="Goober2" parent="." unique_id=1419656634 instance=ExtResource("2_hbghi")]
 position = Vector2(666, 522)
@@ -112,3 +112,6 @@ position = Vector2(524, 536)
 position = Vector2(281, 489)
 coin = ExtResource("13_ubhxj")
 isCoinBlock = true
+
+[node name="FireBall" parent="." unique_id=2124448525 instance=ExtResource("15_ubhxj")]
+position = Vector2(84, 522)

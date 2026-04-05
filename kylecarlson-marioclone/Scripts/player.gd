@@ -9,6 +9,8 @@ var fric: float = 15
 enum playerState {NORMAL,LARGE,FLOWER,HURT,DEAD}
 var currentState = playerState.NORMAL
 var invulnerable: bool = false
+var firing: bool = false
+var canShoot: bool = true
 var normColor = Color("#ffffff")
 var fireColor = Color("#de7331")
 @export var jumpHeight: float = 300
@@ -18,12 +20,14 @@ var fireColor = Color("#de7331")
 @onready var playerHeadCollision = $Area2D/CollisionShape2D
 @onready var animPlayer: AnimationPlayer = $AnimPlayer
 @onready var fireTimer: Timer = $fireTimer
+@onready var fireRateTimer: Timer = $fireRateTimer
 #Get movement
 func _unhandled_input(event: InputEvent) -> void:
 	movementVec = Input.get_vector("left","right","jump","crouch")
 	
 func _physics_process(delta: float) -> void:
 	playerMovement(movementVec, delta)
+	shoot_fireball()
 	
 func playerMovement(moveVec: Vector2, delta) -> void:
 	#Get Horizontal Movement
@@ -32,15 +36,18 @@ func playerMovement(moveVec: Vector2, delta) -> void:
 		#If the player is holding down the mpovement keys
 		if movementVec.x != 0:
 			horV = lerp(horV, movementVec.x * speed, accelSpeed * delta)
-			sprite.play("walk")
+			if !firing:
+				sprite.play("walk")
 			sprite.flip_h = true if sign(horV) == -1 else false
 		if movementVec.x == 0:
 			horV = lerp(horV, movementVec.x * speed, fric * delta)
-			sprite.play("idle")
+			if !firing:
+				sprite.play("idle")
 		#Jump
 		if Input.is_action_pressed("jump"):
 			velocity.y -= jumpHeight
-			sprite.play("jump")
+			if !firing:
+				sprite.play("jump")
 		
 		velocity.x = horV
 	else:
@@ -114,3 +121,18 @@ func _on_fire_timer_timeout() -> void:
 	if currentState == playerState.LARGE:
 		currentState = playerState.FLOWER
 		invulnerable = false
+
+func shoot_fireball() -> void:
+	if currentState == playerState.FLOWER && canShoot:
+		if Input.is_action_pressed("attack"):
+			firing = true
+			canShoot = false
+			fireRateTimer.start()
+			sprite.play("shoot")
+
+func _on_sprite_animation_finished() -> void:
+	if sprite.animation == "shoot":
+		firing = false
+
+func _on_fire_rate_timer_timeout() -> void:
+	canShoot = true

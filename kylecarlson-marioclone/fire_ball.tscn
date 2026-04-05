@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://6r5rugd27ne8"]
+
+[ext_resource type="Script" uid="uid://imlkc6b5peaj" path="res://fire_ball.gd" id="1_gregu"]
+[ext_resource type="Texture2D" uid="uid://bqocnmixoaxl2" path="res://Assets/Sprites/World/fireball.png" id="2_qsv8u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kgtyj"]
+radius = 4.1231055
+
+[node name="FireBall" type="CharacterBody2D" unique_id=2124448525]
+script = ExtResource("1_gregu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1640145118]
+shape = SubResource("CircleShape2D_kgtyj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=918257680]
+texture = ExtResource("2_qsv8u")

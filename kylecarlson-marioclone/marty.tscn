@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wowr3ff71me7" path="res://Scripts/player.gd" id="1_vu2ji"]
 [ext_resource type="Texture2D" uid="uid://bmkihlg33cae6" path="res://Assets/Sprites/Characters/mario_idle.png" id="2_fb4yj"]
+[ext_resource type="Texture2D" uid="uid://4ysfhgnqxa3k" path="res://Assets/Sprites/Characters/marty_dead.png" id="2_icty0"]
 [ext_resource type="Texture2D" uid="uid://evh1f2yyewya" path="res://Assets/Sprites/Characters/mario_jump.png" id="2_l2xpp"]
 [ext_resource type="Texture2D" uid="uid://llmyqtmabpa0" path="res://Assets/Sprites/Characters/mario_walk.png" id="2_sjqyy"]
 [ext_resource type="Texture2D" uid="uid://cbk5n7psgb1a3" path="res://Assets/Sprites/Characters/mario_shoot_fireball.png" id="3_fb4yj"]
@@ -282,6 +283,14 @@ region = Rect2(2304, 0, 96, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pfro4"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_icty0")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pfro4")
@@ -566,8 +575,7 @@ shape = SubResource("RectangleShape2D_sspw1")
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=11458889]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_pfro4")
-animation = &"idle"
-frame_progress = 0.9605868
+animation = &"dead"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=676610224]
 limit_left = 0
@@ -580,5 +588,11 @@ libraries/ = SubResource("AnimationLibrary_icty0")
 wait_time = 0.25
 one_shot = true
 
+[node name="fireRateTimer" type="Timer" parent="." unique_id=60380982]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="animation_finished" from="AnimPlayer" to="." method="_on_anim_player_animation_finished"]
 [connection signal="timeout" from="fireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="fireRateTimer" to="." method="_on_fire_rate_timer_timeout"]
