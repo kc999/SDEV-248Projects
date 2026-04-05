@@ -13,14 +13,19 @@ var firing: bool = false
 var canShoot: bool = true
 var normColor = Color("#ffffff")
 var fireColor = Color("#de7331")
+var root
 @export var jumpHeight: float = 300
 @export var jumpReleaseMultiplier: float = 0.5
+@export var fireBallScene: PackedScene
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var playerCollision = $CollisionShape2D
 @onready var playerHeadCollision = $Area2D/CollisionShape2D
 @onready var animPlayer: AnimationPlayer = $AnimPlayer
 @onready var fireTimer: Timer = $fireTimer
 @onready var fireRateTimer: Timer = $fireRateTimer
+func _ready() -> void:
+	root = get_tree().root
+
 #Get movement
 func _unhandled_input(event: InputEvent) -> void:
 	movementVec = Input.get_vector("left","right","jump","crouch")
@@ -125,6 +130,10 @@ func _on_fire_timer_timeout() -> void:
 func shoot_fireball() -> void:
 	if currentState == playerState.FLOWER && canShoot:
 		if Input.is_action_pressed("attack"):
+			var fireBall = fireBallScene.instantiate()
+			root.add_child(fireBall)
+			fireBall.global_position = global_position
+			
 			firing = true
 			canShoot = false
 			fireRateTimer.start()

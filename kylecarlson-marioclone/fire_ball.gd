@@ -14,3 +14,5 @@ func _physics_process(delta: float) -> void:
 		velocity.y =- jumpHeight
 	move_and_slide()
 	
+	if is_on_wall():
+		queue_free()		

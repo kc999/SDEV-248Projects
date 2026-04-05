@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://4ysfhgnqxa3k" path="res://Assets/Sprites/Characters/marty_dead.png" id="2_icty0"]
 [ext_resource type="Texture2D" uid="uid://evh1f2yyewya" path="res://Assets/Sprites/Characters/mario_jump.png" id="2_l2xpp"]
 [ext_resource type="Texture2D" uid="uid://llmyqtmabpa0" path="res://Assets/Sprites/Characters/mario_walk.png" id="2_sjqyy"]
+[ext_resource type="PackedScene" uid="uid://6r5rugd27ne8" path="res://fire_ball.tscn" id="2_wncjj"]
 [ext_resource type="Texture2D" uid="uid://cbk5n7psgb1a3" path="res://Assets/Sprites/Characters/mario_shoot_fireball.png" id="3_fb4yj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fb4yj"]
@@ -555,6 +556,7 @@ scale = Vector2(0.4, 0.4)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_vu2ji")
+fireBallScene = ExtResource("2_wncjj")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=702041325]
 position = Vector2(-2.2499998, 0)
