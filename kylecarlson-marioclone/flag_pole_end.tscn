@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cbqqrd4kypkgk"]
+
+[ext_resource type="Script" uid="uid://cjq65hi5mox0e" path="res://flag_pole_end.gd" id="1_oyxhj"]
+[ext_resource type="Texture2D" uid="uid://cw0nig5on4hrd" path="res://Assets/Sprites/World/flagpole.png" id="2_4vkve"]
+[ext_resource type="Texture2D" uid="uid://uc2b8acyyxp" path="res://Assets/Sprites/World/flag.png" id="3_6m6gd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyxhj"]
+size = Vector2(3, 226)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpvcb"]
+size = Vector2(20, 6.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fsp58"]
+radius = 5.0
+
+[node name="FlagPoleEnd" type="Node2D" unique_id=855592875]
+script = ExtResource("1_oyxhj")
+
+[node name="FlagPolePlayerCollide" type="Area2D" parent="." unique_id=1750438511]
+position = Vector2(0, -3)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlagPolePlayerCollide" unique_id=1932986533]
+position = Vector2(0.5, -116)
+shape = SubResource("RectangleShape2D_oyxhj")
+
+[node name="FlagPole" type="Sprite2D" parent="." unique_id=2082694959]
+position = Vector2(0, -120)
+texture = ExtResource("2_4vkve")
+
+[node name="FlagPoleFlagCollide" type="Area2D" parent="FlagPole" unique_id=1182940874]
+collision_layer = 128
+collision_mask = 128
+
+[node name="FlagPoleFlagCollideShape" type="CollisionShape2D" parent="FlagPole/FlagPoleFlagCollide" unique_id=769753769]
+position = Vector2(0, 117)
+shape = SubResource("RectangleShape2D_qpvcb")
+
+[node name="Flag" type="Sprite2D" parent="." unique_id=2118764945]
+position = Vector2(5, -187)
+texture = ExtResource("3_6m6gd")
+
+[node name="FlagCollide" type="Area2D" parent="Flag" unique_id=1532302659]
+collision_layer = 128
+collision_mask = 128
+
+[node name="FlagCollideShape" type="CollisionShape2D" parent="Flag/FlagCollide" unique_id=755811550]
+position = Vector2(0, -44)
+shape = SubResource("CircleShape2D_fsp58")
+
+[node name="EndGameTimer" type="Timer" parent="." unique_id=73079229]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="body_entered" from="FlagPolePlayerCollide" to="." method="_on_flag_pole_player_collide_body_entered"]
+[connection signal="area_entered" from="Flag/FlagCollide" to="." method="_on_flag_collide_area_entered"]
+[connection signal="timeout" from="EndGameTimer" to="." method="_on_end_game_timer_timeout"]

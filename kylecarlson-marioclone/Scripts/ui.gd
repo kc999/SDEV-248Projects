@@ -2,7 +2,8 @@ extends CanvasLayer
 
 @onready var coinsLabel: Label = $CoinsLabel
 @onready var livesLabel: Label = $Lives
-
+@onready var winMsg: Label = $EndingMessageWin
+@onready var loseMsg: Label = $EndingMessageFail
 var coins: int
 var lives: int
 

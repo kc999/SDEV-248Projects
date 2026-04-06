@@ -20,3 +20,24 @@ offset_bottom = 68.0
 theme_override_fonts/font = ExtResource("2_m6e0p")
 theme_override_font_sizes/font_size = 16
 text = "Lives: "
+
+[node name="EndingMessageWin" type="Label" parent="." unique_id=60489080]
+visible = false
+offset_left = 195.0
+offset_top = 116.0
+offset_right = 624.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("2_m6e0p")
+text = "You got enough Coins!
+Marty enjoys a tasty burger."
+horizontal_alignment = 1
+
+[node name="EndingMessageFail" type="Label" parent="." unique_id=28520422]
+visible = false
+offset_left = 139.0
+offset_top = 116.0
+offset_right = 659.0
+offset_bottom = 173.0
+theme_override_fonts/font = ExtResource("2_m6e0p")
+text = "You didn't get enough coins!
+Marty does not get a tasty burger :("

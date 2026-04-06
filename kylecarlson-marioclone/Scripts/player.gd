@@ -6,7 +6,8 @@ var horV: float = 0
 var speed: float = 170
 var accelSpeed: float = 10
 var fric: float = 15
-enum playerState {NORMAL,LARGE,FLOWER,HURT,DEAD}
+var endingRestrict: bool = false
+enum playerState {NORMAL,LARGE,FLOWER,HURT,DEAD,ENDING}
 var currentState = playerState.NORMAL
 var invulnerable: bool = false
 var firing: bool = false
@@ -36,11 +37,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	movementVec = Input.get_vector("left","right","jump","crouch")
 	
 func _physics_process(delta: float) -> void:
-	if currentState!=playerState.DEAD:
+	if currentState != playerState.DEAD && currentState != playerState.ENDING:
 		playerMovement(movementVec, delta)
 		shoot_fireball()
-	else:
+	elif currentState == playerState.DEAD:
 		dead(delta)
+	elif currentState == playerState.ENDING:
+		ending(delta)
 	
 func playerMovement(moveVec: Vector2, delta) -> void:
 	#Get Horizontal Movement
@@ -162,4 +165,16 @@ func _on_death_timer_timeout() -> void:
 	if player_stats.lives > 0:
 		get_tree().call_deferred("reload_current_scene")
 	else:
+		player_stats.lives = 3
+		player_stats.coins = 0
 		get_tree().call_deferred("change_scene_to_file","res://game_over.tscn")
+
+func ending(delta):
+	if !endingRestrict:
+		#Move right
+		velocity.x = Vector2.RIGHT.x * speed
+		sprite.play("walk")
+		if !is_on_floor():
+			sprite.play("jump")
+			velocity.y += GRAVITY * delta
+		move_and_slide()
