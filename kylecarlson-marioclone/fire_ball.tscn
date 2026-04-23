@@ -6,6 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_kgtyj"]
 radius = 4.1231055
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gregu"]
+radius = 4.1231055
+
 [node name="FireBall" type="CharacterBody2D" unique_id=2124448525]
 collision_layer = 0
 script = ExtResource("1_gregu")
@@ -15,3 +18,15 @@ shape = SubResource("CircleShape2D_kgtyj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=918257680]
 texture = ExtResource("2_qsv8u")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1120352477]
+collision_layer = 64
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=335894301]
+shape = SubResource("CircleShape2D_gregu")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1434643549]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

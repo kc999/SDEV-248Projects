@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://mtqor1oumf1n"]
+
+[ext_resource type="Script" uid="uid://dgv64vkr2ue08" path="res://player_remove.gd" id="1_0pequ"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbi8i"]
+size = Vector2(20, 71)
+
+[node name="PlayerRemove" type="Node2D" unique_id=1528197996]
+script = ExtResource("1_0pequ")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1220044642]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=602023997]
+position = Vector2(0, 25.5)
+shape = SubResource("RectangleShape2D_bbi8i")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

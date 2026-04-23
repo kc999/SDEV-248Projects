@@ -6,7 +6,8 @@ var horV: float = 0
 var speed: float = 170
 var accelSpeed: float = 10
 var fric: float = 15
-enum playerState {NORMAL,LARGE,FLOWER,HURT,DEAD}
+var endingRestrict: bool = false
+enum playerState {NORMAL,LARGE,FLOWER,HURT,DEAD,ENDING}
 var currentState = playerState.NORMAL
 var invulnerable: bool = false
 var firing: bool = false
@@ -17,22 +18,32 @@ var root
 @export var jumpHeight: float = 300
 @export var jumpReleaseMultiplier: float = 0.5
 @export var fireBallScene: PackedScene
+@onready var unFireTimer: Timer = $unFireTimer
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var playerCollision = $CollisionShape2D
 @onready var playerHeadCollision = $Area2D/CollisionShape2D
 @onready var animPlayer: AnimationPlayer = $AnimPlayer
 @onready var fireTimer: Timer = $fireTimer
 @onready var fireRateTimer: Timer = $fireRateTimer
+@onready var characterCollision: CollisionShape2D = $CollisionShape2D
+@onready var deathTimer: Timer = $DeathTimer
+var UI: CanvasLayer
 func _ready() -> void:
 	root = get_tree().root
+	UI = get_tree().get_first_node_in_group("ui")
 
 #Get movement
 func _unhandled_input(event: InputEvent) -> void:
 	movementVec = Input.get_vector("left","right","jump","crouch")
 	
 func _physics_process(delta: float) -> void:
-	playerMovement(movementVec, delta)
-	shoot_fireball()
+	if currentState != playerState.DEAD && currentState != playerState.ENDING:
+		playerMovement(movementVec, delta)
+		shoot_fireball()
+	elif currentState == playerState.DEAD:
+		dead(delta)
+	elif currentState == playerState.ENDING:
+		ending(delta)
 	
 func playerMovement(moveVec: Vector2, delta) -> void:
 	#Get Horizontal Movement
@@ -65,18 +76,6 @@ func playerMovement(moveVec: Vector2, delta) -> void:
 	if !invulnerable: 
 		move_and_slide()
 	
-func controlSize(state)-> void:
-	match state:
-		playerState.NORMAL:
-			sprite.scale = Vector2(1,1)
-		playerState.LARGE:
-			sprite.scale = Vector2(1.5,1.5)
-			playerCollision.scale = Vector2(1.25,1.25)
-			playerHeadCollision.position.y = -39 
-		playerState.FLOWER:
-			sprite.scale = Vector2(0.75,0.75)
-		_:
-			sprite.scale = Vector2(0.4,0.4)
 
 func enlarge()-> void:
 	animPlayer.play("grow")
@@ -88,14 +87,15 @@ func shrink() -> void:
 	invulnerable = true
 	
 func take_damage()-> void:
-	print(currentState)
 	if !invulnerable:
+		if currentState == playerState.NORMAL:
+			die()
 		if currentState == playerState.LARGE:
 			shrink()
 		if currentState == playerState.FLOWER:
-			change_color(normColor)
-			fireTimer.start()
+			unFireTimer.start()
 			invulnerable = true
+		
 func change_color(color:Color)-> void:
 	sprite.modulate = color
 	
@@ -117,15 +117,9 @@ func _on_anim_player_animation_finished(anim_name: StringName) -> void:
 			return
 		
 func _on_fire_timer_timeout() -> void:
-	#Chose the correct state based on what state the player has when this function is called
-	if currentState == playerState.FLOWER:
-		#Player has a flower, make them normal again
-		currentState  = playerState.LARGE
-		invulnerable = false
-	#Player is in large state, make them have a flower now
-	if currentState == playerState.LARGE:
-		currentState = playerState.FLOWER
-		invulnerable = false
+	currentState = playerState.FLOWER
+	invulnerable = false
+	
 
 func shoot_fireball() -> void:
 	if currentState == playerState.FLOWER && canShoot:
@@ -133,7 +127,7 @@ func shoot_fireball() -> void:
 			var fireBall = fireBallScene.instantiate()
 			root.add_child(fireBall)
 			fireBall.global_position = global_position
-			
+			fireBall.dir.x = -1 if sprite.flip_h == true else 1
 			firing = true
 			canShoot = false
 			fireRateTimer.start()
@@ -145,3 +139,42 @@ func _on_sprite_animation_finished() -> void:
 
 func _on_fire_rate_timer_timeout() -> void:
 	canShoot = true
+
+
+func _on_un_fire_timer_timeout() -> void:
+	currentState = playerState.LARGE
+	invulnerable = false
+	change_color(normColor)
+
+func die():
+	currentState = playerState.DEAD
+	velocity.x = 0
+	velocity.y = -200
+	characterCollision.set_deferred("disabled",true)
+	sprite.play("dead")
+	
+	deathTimer.start()
+	
+func dead(delta):
+	velocity.y += GRAVITY * delta
+	move_and_slide()
+
+func _on_death_timer_timeout() -> void:
+	UI.remove_lives(1)
+	#Restart game and remove lives
+	if player_stats.lives > 0:
+		get_tree().call_deferred("reload_current_scene")
+	else:
+		player_stats.lives = 3
+		player_stats.coins = 0
+		get_tree().call_deferred("change_scene_to_file","res://game_over.tscn")
+
+func ending(delta):
+	if !endingRestrict:
+		#Move right
+		velocity.x = Vector2.RIGHT.x * speed
+		sprite.play("walk")
+		if !is_on_floor():
+			sprite.play("jump")
+			velocity.y += GRAVITY * delta
+		move_and_slide()

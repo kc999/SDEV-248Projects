@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cw53osnwrg00a"]
+
+[ext_resource type="PackedScene" uid="uid://l24c81tnvw6o" path="res://question_block.tscn" id="1_iqpo1"]
+[ext_resource type="PackedScene" uid="uid://3j835r5cwcds" path="res://mushroom.tscn" id="2_5ha7v"]
+
+[node name="QuestionBlock" unique_id=438817558 instance=ExtResource("1_iqpo1")]
+containsMushroom = true
+mushroomScene = ExtResource("2_5ha7v")

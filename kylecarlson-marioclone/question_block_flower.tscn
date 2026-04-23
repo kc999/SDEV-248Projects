@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cmr484i4cccfl"]
+
+[ext_resource type="PackedScene" uid="uid://l24c81tnvw6o" path="res://question_block.tscn" id="1_wwww6"]
+
+[node name="QuestionBlock" unique_id=438817558 instance=ExtResource("1_wwww6")]
+containsFlower = true

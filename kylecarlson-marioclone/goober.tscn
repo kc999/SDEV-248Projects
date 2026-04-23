@@ -211,6 +211,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_hs21c"]
 resource_name = "die"
@@ -240,13 +252,30 @@ tracks/1/keys = {
 "values": [Vector2(0, 0), Vector2(0, 19.42)]
 }
 
+[sub_resource type="Animation" id="Animation_1vkn7"]
+resource_name = "fireball_hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.141592653589793]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1vkn7"]
 _data = {
 &"RESET": SubResource("Animation_px748"),
-&"die": SubResource("Animation_hs21c")
+&"die": SubResource("Animation_hs21c"),
+&"fireball_hit": SubResource("Animation_1vkn7")
 }
 
-[node name="Goober" type="CharacterBody2D" unique_id=793101633]
+[node name="Goober" type="CharacterBody2D" unique_id=793101633 groups=["enemies"]]
 scale = Vector2(0.35, 0.35)
 collision_layer = 4
 collision_mask = 7
@@ -274,5 +303,8 @@ shape = SubResource("CircleShape2D_px748")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=420729510]
 libraries/ = SubResource("AnimationLibrary_1vkn7")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=387215866]
+
 [connection signal="body_entered" from="HeadHitbox" to="." method="_on_head_hitbox_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
