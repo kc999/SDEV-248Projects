@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b1nmeduub4838"]
+
+[ext_resource type="PackedScene" uid="uid://bntrrcech8fe2" path="res://Assets/poolball_base.glb" id="1_ta5tw"]
+[ext_resource type="Texture2D" uid="uid://rd76j03qd84t" path="res://Assets/balltextures/m_1_BaseColor.png" id="2_prgjd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iw777"]
+albedo_texture = ExtResource("2_prgjd")
+
+[node name="poolball_base" unique_id=1297351198 instance=ExtResource("1_ta5tw")]
+
+[node name="Sphere" parent="." index="0" unique_id=524609554]
+surface_material_override/0 = SubResource("StandardMaterial3D_iw777")
