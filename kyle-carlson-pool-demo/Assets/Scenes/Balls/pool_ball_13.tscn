@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://mnumhxqo6oc5"]
+
+[ext_resource type="PackedScene" uid="uid://bntrrcech8fe2" path="res://Assets/poolball_base.glb" id="1_ihwby"]
+[ext_resource type="Texture2D" uid="uid://c05krat3u3im3" path="res://Assets/balltextures/m_13_BaseColor.png" id="2_ihwby"]
+[ext_resource type="Texture2D" uid="uid://bqif8826oytoc" path="res://Assets/balltextures/m_13_Roughness.png" id="3_2hyk1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hptbm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utncj"]
+albedo_texture = ExtResource("2_ihwby")
+roughness_texture = ExtResource("3_2hyk1")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wmxja"]
+radius = 0.027659435
+
+[node name="PoolBall-13" type="RigidBody3D" unique_id=1424699700]
+mass = 0.165
+physics_material_override = SubResource("PhysicsMaterial_hptbm")
+
+[node name="poolball_base" parent="." unique_id=895504399 instance=ExtResource("1_ihwby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42894828, 0)
+
+[node name="Sphere" parent="poolball_base" index="0" unique_id=930573278]
+surface_material_override/0 = SubResource("StandardMaterial3D_utncj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1182965209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6140125e-05, -0.0056284666, -0.00020177662)
+shape = SubResource("SphereShape3D_wmxja")
+
+[editable path="poolball_base"]

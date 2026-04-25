@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://bwu0k4m7n23g5"]
-
-[ext_resource type="PackedScene" uid="uid://bntrrcech8fe2" path="res://Assets/poolball_base.glb" id="1_k5atw"]
-
-[node name="Node3D" type="Node3D" unique_id=1719257118]
-
-[node name="poolball_base" parent="." unique_id=1297351198 instance=ExtResource("1_k5atw")]
