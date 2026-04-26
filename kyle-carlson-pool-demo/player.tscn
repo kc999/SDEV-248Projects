@@ -1,16 +1,88 @@
 [gd_scene format=3 uid="uid://obdwxa3kmkww"]
 
 [ext_resource type="Script" uid="uid://bmhkpxnd16kw0" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://pj34r1n7d3od" path="res://Assets/poolcue.glb" id="2_onrkg"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sh265"]
+radius = 0.2
+
+[sub_resource type="Animation" id="Animation_onrkg"]
+resource_name = "PullBack"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.59)]
+}
+
+[sub_resource type="Animation" id="Animation_i3pqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hqtel"]
+resource_name = "Shoot"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.23333333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.59), Vector3(0, 0, 0), Vector3(0, 0, -0.275), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
+_data = {
+&"PullBack": SubResource("Animation_onrkg"),
+&"RESET": SubResource("Animation_i3pqv"),
+&"Shoot": SubResource("Animation_hqtel")
+}
 
 [node name="Player" type="CharacterBody3D" unique_id=1541135183]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_4flbx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=166176166]
 shape = SubResource("SphereShape3D_sh265")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1063791758]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+[node name="CameraHolder" type="Node3D" parent="." unique_id=1720705880]
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder" unique_id=1063791758]
+transform = Transform3D(1, 0, 0, 0, 0.9707123, 0.24024498, 0, -0.24024498, 0.9707123, 0, 0.31119508, 1)
+
+[node name="CueHolder" type="Node3D" parent="." unique_id=342433434]
+
+[node name="poolcue" parent="CueHolder" unique_id=218957680 instance=ExtResource("2_onrkg")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.7019012, -2.504541, 0.55621624)
+
+[node name="HitDetection" type="RayCast3D" parent="CueHolder/poolcue/PoolCue" parent_id_path=PackedInt32Array(218957680, 1349661158) index="0" unique_id=269136933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6675016, 2.4073844, 0.70093066)
+target_position = Vector3(0, 0, 0.1)
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="CueHolder" unique_id=2030778889]
+libraries/ = SubResource("AnimationLibrary_sweqy")
+
+[editable path="CueHolder/poolcue"]
