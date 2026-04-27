@@ -13,14 +13,15 @@ roughness_texture = ExtResource("3_4q0fy")
 [sub_resource type="SphereShape3D" id="SphereShape3D_wmxja"]
 radius = 0.027659435
 
-[node name="PoolBall-14" type="RigidBody3D" unique_id=1424699700]
+[node name="PoolBall-14" type="RigidBody3D" unique_id=1424699700 groups=["Poolballs"]]
+collision_mask = 7
 mass = 0.165
 physics_material_override = SubResource("PhysicsMaterial_hptbm")
 
 [node name="poolball_base" parent="." unique_id=895504399 instance=ExtResource("1_vwl2f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42894828, 0)
 
-[node name="Sphere" parent="poolball_base" index="0" unique_id=930573278]
+[node name="Sphere" parent="poolball_base" index="0" unique_id=524609554]
 surface_material_override/0 = SubResource("StandardMaterial3D_utncj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1182965209]

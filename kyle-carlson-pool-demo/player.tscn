@@ -52,6 +52,23 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0.59), Vector3(0, 0, 0), Vector3(0, 0, -0.275), Vector3(0, 0, 0)]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"set_waiting_for_hit_true"
+}, {
+"args": [],
+"method": &"set_waiting_for_hit_false"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
 _data = {
@@ -61,28 +78,32 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=1541135183]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_4flbx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=166176166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07766785, 0.19154704)
 shape = SubResource("SphereShape3D_sh265")
 
 [node name="CameraHolder" type="Node3D" parent="." unique_id=1720705880]
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder" unique_id=1063791758]
-transform = Transform3D(1, 0, 0, 0, 0.9707123, 0.24024498, 0, -0.24024498, 0.9707123, 0, 0.31119508, 1)
+transform = Transform3D(1, 0, 0, 0, 0.8599058, 0.5104529, 0, -0.5104529, 0.8599058, 0, 0.33325636, 0.17300552)
 
 [node name="CueHolder" type="Node3D" parent="." unique_id=342433434]
 
 [node name="poolcue" parent="CueHolder" unique_id=218957680 instance=ExtResource("2_onrkg")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.7019012, -2.504541, 0.55621624)
 
-[node name="HitDetection" type="RayCast3D" parent="CueHolder/poolcue/PoolCue" parent_id_path=PackedInt32Array(218957680, 1349661158) index="0" unique_id=269136933]
+[node name="HitDetection" type="RayCast3D" parent="CueHolder/poolcue/PoolCue" parent_id_path=PackedInt32Array(218957680, 1234009812) index="0" unique_id=269136933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6675016, 2.4073844, 0.70093066)
+enabled = false
 target_position = Vector3(0, 0, 0.1)
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="CueHolder" unique_id=2030778889]
 libraries/ = SubResource("AnimationLibrary_sweqy")
+
+[connection signal="animation_finished" from="CueHolder/AnimPlayer" to="." method="_on_anim_player_animation_finished"]
 
 [editable path="CueHolder/poolcue"]

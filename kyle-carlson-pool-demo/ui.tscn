@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://smcwxv8ahy5t"]
+
+[ext_resource type="Script" uid="uid://bptaba6xealma" path="res://ui.gd" id="1_fyqef"]
+[ext_resource type="FontFile" uid="uid://c1fh6ldvuxt51" path="res://Assets/Fonts/SuperAdorable-MAvyp.ttf" id="2_m6e0p"]
+[ext_resource type="LabelSettings" uid="uid://bdcussnd2nem8" path="res://labelSettings.tres" id="3_27fn8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fyqef"]
+font = ExtResource("2_m6e0p")
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+shadow_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_27fn8"]
+font = ExtResource("2_m6e0p")
+font_size = 24
+font_color = Color(0.0018410678, 0.0018410682, 0.0018410678, 1)
+shadow_color = Color(1, 1, 1, 1)
+
+[node name="UI" type="CanvasLayer" unique_id=1846983523]
+script = ExtResource("1_fyqef")
+
+[node name="Control" type="Control" parent="." unique_id=2070793381]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AlertsLabel" type="Label" parent="Control" unique_id=1900577080]
+visible = false
+layout_mode = 0
+offset_left = -216.85
+offset_right = 221.15
+offset_bottom = 57.0
+text = "Scratch! Try Again!"
+label_settings = SubResource("LabelSettings_fyqef")
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="." unique_id=515205406]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control2" unique_id=1967892454]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ShotsCounter" type="Label" parent="Control2/VBoxContainer" unique_id=1736780606]
+layout_mode = 2
+text = "Shots Taken:"
+label_settings = ExtResource("3_27fn8")
+
+[node name="Shots" type="Label" parent="Control2/VBoxContainer" unique_id=190249760]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("3_27fn8")
+
+[node name="Control3" type="Control" parent="." unique_id=1110690399]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 403.0
+offset_top = -2.0
+offset_right = 403.0
+offset_bottom = -2.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control3" unique_id=871253344]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Shots Made" type="Label" parent="Control3/VBoxContainer" unique_id=230760875]
+layout_mode = 2
+text = "Shots made"
+label_settings = ExtResource("3_27fn8")
+horizontal_alignment = 2
+
+[node name="ShotsMadeAmount" type="Label" parent="Control3/VBoxContainer" unique_id=185265988]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("3_27fn8")
+horizontal_alignment = 2
+
+[node name="Control4" type="Control" parent="." unique_id=1063486587]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 583.0
+offset_right = 52.0
+offset_bottom = 623.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control4" unique_id=1990696817]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control4/VBoxContainer" unique_id=632103953]
+layout_mode = 2
+text = "Shot Power"
+label_settings = SubResource("LabelSettings_27fn8")
+
+[node name="ProgressBar" type="ProgressBar" parent="Control4/VBoxContainer" unique_id=2002364415]
+layout_mode = 2
+max_value = 0.8

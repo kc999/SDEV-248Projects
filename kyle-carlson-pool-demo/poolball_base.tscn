@@ -13,7 +13,7 @@ radius = 0.02977521
 
 [node name="poolball_base" unique_id=1297351198 instance=ExtResource("1_ta5tw")]
 
-[node name="Sphere" parent="." index="0" unique_id=930573278]
+[node name="Sphere" parent="." index="0" unique_id=524609554]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.41432306, 0)
 surface_material_override/0 = SubResource("StandardMaterial3D_iw777")
 
