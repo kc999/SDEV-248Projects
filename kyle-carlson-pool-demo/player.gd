@@ -20,6 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_pressed("rotate"):
 			rotate_y(-event.relative.x * sensitivity)
 	if Input.is_action_pressed("shoot") && !animPlayer.is_playing() && !charging:
+		force = 0.1
 		animPlayer.play("PullBack")
 	if Input.is_action_pressed("slowdown"):
 		speed = speedSlowed
@@ -68,6 +69,7 @@ func charge_shot(delta):
 		Ui.update_shots()
 		animPlayer.play("Shoot")
 		Ui.updateShotPower(0)
+		
 		charging = false
 
 func _on_anim_player_animation_finished(anim_name: StringName) -> void:
